@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { rolesData, usersData } from "../data";
+import { logger } from "../utils";
 
 export const getRoles = (req: Request, res: Response) => {
   try {
@@ -15,12 +16,14 @@ export const updateRole = (req: Request, res: Response) => {
     const user = usersData.find((u) => u.id === id);
 
     if (!user) {
+      logger("User not found on server.", { id, body: req.body });
       return res.status(404).json({ message: "User not found on server." });
     }
 
     const { role } = req.body;
 
     if (!rolesData.includes(role)) {
+      logger("Invalid role.", { id, body: req.body });
       return res.status(400).json({ message: "Invalid role." });
     }
 
@@ -28,6 +31,7 @@ export const updateRole = (req: Request, res: Response) => {
 
     res.status(201).json({ user });
   } catch (error) {
+    logger(error);
     return res.status(500).json({ message: "Something went wrong." });
   }
 };

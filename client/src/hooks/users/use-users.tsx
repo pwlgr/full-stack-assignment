@@ -14,7 +14,10 @@ export const useUsers = () => {
       setUsers(response);
     } catch (err) {
       setError(err.message);
+      setLoading(false);
+      return;
     }
+
     setError("");
     setLoading(false);
   };
