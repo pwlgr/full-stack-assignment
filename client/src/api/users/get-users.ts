@@ -2,7 +2,7 @@ import type { User } from "../../types";
 import { API_URL } from "../config";
 
 export const getUsers = async (roles?: string[]): Promise<User[]> => {
-  const rolesQuery = roles?.length ? roles.join(",") : "";
+  const rolesQuery = roles?.length ? roles.join(",") : null;
   const res = await fetch(`${API_URL}/users?roles=${rolesQuery}`);
   if (!res.ok) {
     const error = await res.json();

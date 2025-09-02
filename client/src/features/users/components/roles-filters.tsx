@@ -16,7 +16,7 @@ export const RolesFilters = ({ roles, filterRoles }: RolesFiltersProps) => {
           onChange={(_, checked) => filterRoles(role, checked)}
         />
       }
-      label={role}
+      label={role || "No role"}
     />
   ));
 

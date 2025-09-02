@@ -56,7 +56,7 @@ export const UsersTable = ({
             >
               {roles.map((role) => (
                 <MenuItem key={`menu_${role}`} value={role}>
-                  {role}
+                  {role || <em>None</em>}
                 </MenuItem>
               ))}
             </Select>
