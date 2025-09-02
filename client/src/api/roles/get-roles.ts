@@ -1,7 +1,7 @@
 import { API_URL } from "../config";
 
-export const getUsers = async () => {
-  const res = await fetch(`${API_URL}/users`);
+export const getRoles = async () => {
+  const res = await fetch(`${API_URL}/roles`);
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message);

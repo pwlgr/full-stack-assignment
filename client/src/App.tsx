@@ -1,12 +1,7 @@
-import { Button } from "@mui/material";
-import "./App.css";
+import { Users } from "./features";
 
 function App() {
-  return (
-    <>
-      <Button>test</Button>
-    </>
-  );
+  return <Users />;
 }
 
 export default App;
