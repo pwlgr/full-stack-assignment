@@ -56,7 +56,7 @@ Fastest way to mock error is to simply add some random string as id when for exa
 To generate React repo I used ready template using:
 
 ```
-npm create vite@latest client -- --template react-task
+npm create vite@latest client -- --template react-ts
 ```
 
 ## Authors
