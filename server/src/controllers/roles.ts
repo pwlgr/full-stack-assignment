@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ROLES, usersData } from "../models";
+import { rolesData, usersData } from "../data";
 
 export const getRoles = (req: Request, res: Response) => {
   try {
-    res.status(200).json(ROLES);
+    res.status(200).json(rolesData);
   } catch (error) {
     return res.status(404).json({ message: "Roles not found" });
   }
@@ -20,7 +20,7 @@ export const updateRole = (req: Request, res: Response) => {
 
     const { role } = req.body;
 
-    if (!ROLES.includes(role)) {
+    if (!rolesData.includes(role)) {
       return res.status(400).json({ message: "Invalid role." });
     }
 

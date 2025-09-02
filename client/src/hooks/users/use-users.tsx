@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { getUsers } from "../api";
+import { getUsers } from "../../api";
+import type { User } from "../../types";
 
 export const useUsers = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string>("");
   const fetchUsersData = async () => {
-    setIsLoading(true);
+    setLoading(true);
 
     try {
       const response = await getUsers();
@@ -14,8 +15,8 @@ export const useUsers = () => {
     } catch (err) {
       setError(err.message);
     }
-
-    setIsLoading(false);
+    setError("");
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export const useUsers = () => {
   }, []);
 
   return {
-    isLoading,
+    loading,
     users,
     error,
     fetchUsersData,

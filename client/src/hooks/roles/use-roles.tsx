@@ -1,22 +1,14 @@
 import { useEffect, useState } from "react";
-import { getRoles, updateRole } from "../api";
-
-interface LoadingState {
-  get: boolean;
-  patch: boolean;
-}
-
-const INITIAL_LOADING_STATE: LoadingState = {
-  get: false,
-  patch: false,
-};
+import { getRoles, updateRole } from "../../api";
+import type { User } from "../../types";
 
 export const useRoles = () => {
-  const [loading, setLoading] = useState<LoadingState>(INITIAL_LOADING_STATE);
+  const [loading, setLoading] = useState<boolean>(false);
   const [roles, setRoles] = useState<string[]>([]);
   const [error, setError] = useState<string>("");
   const fetchRolesData = async () => {
-    setLoading({ ...INITIAL_LOADING_STATE, get: true });
+    setError("");
+    setLoading(true);
 
     try {
       const response = await getRoles();
@@ -24,24 +16,24 @@ export const useRoles = () => {
     } catch (err) {
       setError(err.message);
     }
-
-    setLoading(INITIAL_LOADING_STATE);
+    setError("");
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchRolesData();
   }, []);
 
-  const updateUserRole = async (id: string, role: string) => {
-    setLoading({ ...INITIAL_LOADING_STATE, patch: true });
+  const updateUserRole = async (id: User["id"], role: User["role"]) => {
+    setError("");
+    setLoading(true);
 
     try {
       await updateRole(id, role);
     } catch (err) {
       setError(err.message);
     }
-
-    setLoading(INITIAL_LOADING_STATE);
+    setLoading(false);
   };
 
   return {

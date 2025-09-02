@@ -12,10 +12,12 @@ export const usersData: User[] = [
     name: "tom",
     email: "tom@mail.com",
     id: randomUUID(),
+    role: "",
   },
   {
     name: "alice",
     email: "alice@mail.com",
     id: randomUUID(),
+    role: "",
   },
 ];

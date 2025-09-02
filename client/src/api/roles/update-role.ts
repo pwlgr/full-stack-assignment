@@ -1,6 +1,10 @@
+import type { User } from "../../types";
 import { API_URL } from "../config";
 
-export const updateRole = async (id: string, role: string) => {
+export const updateRole = async (
+  id: User["id"],
+  role: User["role"]
+): Promise<User> => {
   const res = await fetch(`${API_URL}/${`users/${id}/roles`}`, {
     method: "PATCH",
     headers: {

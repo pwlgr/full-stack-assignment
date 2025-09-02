@@ -1,19 +1,25 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-
-interface User {
-  name: string;
-  id: string;
-  email: string;
-  role?: unknown;
-}
+import type { User } from "../../../types";
+import { capitalize } from "../../../utils";
 
 interface UsersTableProps {
   users: User[];
   isLoading: boolean;
   roles: string[];
-  updateRole: (id: string, role: string) => Promise<void>;
+  updateRole: (id: User["id"], role: User["role"]) => Promise<void>;
 }
+
+type UserFieldsType = {
+  [K in keyof User]: K;
+};
+
+const userFields: UserFieldsType = {
+  name: "name",
+  id: "id",
+  email: "email",
+  role: "role",
+};
 
 export const UsersTable = ({
   users,
@@ -22,26 +28,26 @@ export const UsersTable = ({
   updateRole,
 }: UsersTableProps) => {
   const columns: GridColDef<User>[] = [
-    { field: "id", headerName: "Id", width: 90, flex: 1 },
+    { field: userFields.id, headerName: userFields.id, flex: 1 },
     {
-      field: "name",
-      headerName: "Name",
+      field: userFields.name,
+      headerName: capitalize(userFields.name),
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: userFields.email,
+      headerName: capitalize(userFields.email),
       flex: 1,
     },
     {
-      field: "role",
-      headerName: "Role",
+      field: userFields.role,
+      headerName: capitalize(userFields.role),
       flex: 1,
       renderCell: (params) => (
         <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
           <Select
             value={params.value ?? ""}
-            label="Role"
+            label={userFields.role}
             onChange={(e) => {
               updateRole(params.row.id, e.target.value);
             }}
@@ -64,6 +70,12 @@ export const UsersTable = ({
       disableRowSelectionOnClick
       loading={isLoading}
       hideFooter
+      slotProps={{
+        loadingOverlay: {
+          variant: "circular-progress",
+          noRowsVariant: "circular-progress",
+        },
+      }}
     />
   );
 };
