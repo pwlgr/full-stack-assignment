@@ -1,23 +1,24 @@
 import { randomUUID } from "crypto";
 import { User } from "../types";
+import { ADMIN, EDITOR, VIEWER } from "./roles";
 
 export const usersData: User[] = [
   {
     name: "john",
     email: "john@mail.com",
     id: randomUUID(),
-    role: "Admin",
+    role: ADMIN,
   },
   {
     name: "tom",
     email: "tom@mail.com",
     id: randomUUID(),
-    role: "",
+    role: EDITOR,
   },
   {
     name: "alice",
     email: "alice@mail.com",
     id: randomUUID(),
-    role: "",
+    role: VIEWER,
   },
 ];

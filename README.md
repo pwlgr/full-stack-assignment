@@ -36,10 +36,22 @@ This should resolve to something like this:
 
 ![alt text](image.png)
 
+## Invoking error
+
+Fastest way to mock error is to simply add some random string as id when for example updating role:
+
+![alt text](image-3.png)
+
+![alt text](image-2.png)
+
 ## More info (thoughts and assumptions)
 
 - I was thinking about using Turborepo to split this code into apps and packages but I decided to keep it simple and not overenginner things as it was mentioned in task description
 - I am aware that there should be one source of true for the types and in my solution User type needs to be changed in 2 places but as mentioned above I went with simple approach and in real/bigger project this would go to some common package for backend and frontend to use one source
+- I was wondering about filtering solution if I should just filter users on client using .find but I assumed it would be better to stick to good pracises and mock more realistic apporach where filtering is done done on server and databse (I used query params)
+- I thought about persting filters using URL params but since there was not mention about it task description I skipped this
+
+![alt text](image-1.png)
 
 ### Code used
 

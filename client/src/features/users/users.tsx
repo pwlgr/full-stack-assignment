@@ -1,7 +1,8 @@
 import { Alert, Container, Snackbar } from "@mui/material";
+import { useCallback } from "react";
 import { useRoles, useUsers } from "../../hooks";
 import type { User } from "../../types";
-import { UsersTable } from "./components";
+import { RolesFilters, UsersTable } from "./components";
 
 export const Users = () => {
   const {
@@ -9,6 +10,8 @@ export const Users = () => {
     loading: fetchingUsers,
     fetchUsersData,
     error: usersError,
+    setActiveFilters,
+    activeFilters,
   } = useUsers();
   const {
     roles,
@@ -22,9 +25,26 @@ export const Users = () => {
     await fetchUsersData();
   };
 
+  const filterRoles = useCallback(
+    async (role: User["role"], checked: boolean) => {
+      const areAllActiveOrEmpty =
+        activeFilters.includes("all") || activeFilters.length === 0;
+
+      const filteredRoles = checked
+        ? [...activeFilters, role]
+        : areAllActiveOrEmpty
+        ? roles.filter((r) => r !== role)
+        : activeFilters.filter((r) => r !== role);
+
+      setActiveFilters(filteredRoles);
+    },
+    [roles, setActiveFilters, activeFilters]
+  );
+
   return (
     <>
       <Container maxWidth="md">
+        <RolesFilters roles={roles} filterRoles={filterRoles} />
         <UsersTable
           users={users}
           roles={roles}
