@@ -9,7 +9,7 @@ interface RolesFiltersProps {
 export const RolesFilters = ({ roles, filterRoles }: RolesFiltersProps) => {
   const filtersControls = roles.map((role) => (
     <FormControlLabel
-      key={role}
+      key={`label_${role}`}
       control={
         <Checkbox
           defaultChecked
