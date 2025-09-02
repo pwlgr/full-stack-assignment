@@ -6,6 +6,7 @@ export const usersData: User[] = [
     name: "john",
     email: "john@mail.com",
     id: randomUUID(),
+    role: "Admin",
   },
   {
     name: "tom",

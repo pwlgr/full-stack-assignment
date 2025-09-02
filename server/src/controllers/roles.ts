@@ -15,19 +15,19 @@ export const updateRole = (req: Request, res: Response) => {
     const user = usersData.find((u) => u.id === id);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found on server." });
     }
 
     const { role } = req.body;
 
     if (!ROLES.includes(role)) {
-      return res.status(400).json({ message: "Invalid role" });
+      return res.status(400).json({ message: "Invalid role." });
     }
 
     user.role = role;
 
-    res.status(201).json(user);
+    res.status(201).json({ user });
   } catch (error) {
-    return res.status(400).json({ message: "Something went wrong" });
+    return res.status(500).json({ message: "Something went wrong." });
   }
 };
